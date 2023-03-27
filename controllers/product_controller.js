@@ -17,7 +17,6 @@ class ProductController {
     static async addProduct(request, response) {
         try {
             const { product_name, category, status, defect_id } = request.body;
-
             let result = await product.create({
                 product_name, category, status, defect_id
             });
