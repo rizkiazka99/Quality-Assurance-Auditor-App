@@ -19,5 +19,13 @@
     "express": "^4.18.2",
     "pg": "^8.10.0",
     "sequelize": "^6.30.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizkiazka99/Quality-Assurance-Auditor-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rizkiazka99/Quality-Assurance-Auditor-App/issues"
+  },
+  "homepage": "https://github.com/rizkiazka99/Quality-Assurance-Auditor-App#readme"
 }
