@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     defect_name: DataTypes.STRING,
     type: DataTypes.STRING,
     area: DataTypes.STRING,
-    suggestion: DataTypes.STRING,
-    product_id: DataTypes.INTEGER
+    suggestion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'defect',
