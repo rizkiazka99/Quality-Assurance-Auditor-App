@@ -1,9 +1,10 @@
 const route = require('express').Router();
 
 route.get('/', (request, response) => {
-    response.json({
-        message: 'Quality Assurance Auditor App'
-    });
+    // response.json({
+    //     message: 'Quality Assurance Auditor App'
+    // });
+    response.render('index.ejs')
 });
 
 const productRoutes = require('./product.js');

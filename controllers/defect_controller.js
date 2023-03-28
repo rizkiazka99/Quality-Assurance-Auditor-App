@@ -3,7 +3,7 @@ class DefectController {
     static async getByDefects(request, response) {
         try { 
             let defects = await defect.findAll()
-            response.json(defects)
+            response.render('defectPage.ejs',{defects})
         } catch (err) {
             response.json(err)
         }
@@ -11,10 +11,7 @@ class DefectController {
 
     static addDefectPage(request, response) {
         try {
-            response.json({
-                message : "Add Defect Page"
-            })
-
+            response.render('createDefect.ejs')
         } catch (err) {
             response.json(err)
         }
@@ -34,11 +31,13 @@ class DefectController {
 
     }
 
-    static updateDefectPage(request, response) {
+    static async updateDefectPage(request, response) {
         try {
-            response.json({ 
-                message: "UpdateDefectPage"
-            })
+            const id = +request.params.id
+            let defects = await defect.findByPk(id);
+            
+            response.render('updateDefect.ejs',{defects})
+            // console.log(defects)
         } catch (err) {
             response.json(err)
         }
