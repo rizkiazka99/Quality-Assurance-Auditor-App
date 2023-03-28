@@ -23,9 +23,9 @@ let defects = await defect.findAll({
 
     static async addDefect(request, response) {
         try {
-            const { defect_name, type, area, suggestion, product_id } = request.body;
+            const { defect_name, type, area, suggestion } = request.body;
             let result = await defect.create({
-                defect_name, type, area, suggestion, product_id
+                defect_name, type, area, suggestion
             });
             response.json(result);
 
@@ -51,9 +51,9 @@ let defects = await defect.findAll({
     static async updateDefect(request, response) {
         try {
             const id = +request.params.id
-            const { defect_name, type, area, suggestion, product_id } = request.body;
+            const { defect_name, type, area, suggestion } = request.body;
             let result = await defect.update({
-                defect_name, type, area, suggestion, product_id 
+                defect_name, type, area, suggestion 
             }, {
                 where : { id }
             })

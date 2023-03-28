@@ -20,9 +20,9 @@ class ProductController {
 
     static async addProduct(request, response) {
         try {
-            const { product_name, category, status, defect_id } = request.body;
+            const { product_name, category, status } = request.body;
             let result = await product.create({
-                product_name, category, status, defect_id
+                product_name, category, status
             });
             response.json(result);
         } catch(err) {
@@ -37,10 +37,10 @@ class ProductController {
     static async updateProduct(request, response) {
         try {
             const id = +request.params.id;
-            const { product_name, category, status, defect_id } = request.body;
+            const { product_name, category, status } = request.body;
 
             let result = await product.update({
-                product_name, category, status, defect_id
+                product_name, category, status
             }, { 
                 where: { id } 
             });
