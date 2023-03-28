@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   productDefect.init({
-    product_id: DataTypes.INTEGER,
-    defect_id: DataTypes.INTEGER
+    productId: DataTypes.INTEGER,
+    defectId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'productDefect',
