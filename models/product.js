@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       product_name: DataTypes.STRING,
       category: DataTypes.STRING,
       status: DataTypes.STRING,
-      defect_id: DataTypes.INTEGER,
     },
     {
       sequelize,
