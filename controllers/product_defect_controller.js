@@ -15,7 +15,8 @@ class ProductDefectController {
         try {
             const { product_id, defect_id } = request.body
             let result = await productDefect.create({
-                product_id, defect_id
+                product_id : +product_id, 
+                defect_id : +defect_id
             })
             response.json(result)
 
