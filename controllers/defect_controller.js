@@ -2,8 +2,12 @@ const { defect, sequelize } = require('../models')
 class DefectController {
     static async getByDefects(request, response) {
         try { 
-            let defects = await defect.findAll()
-            response.json(defects)
+let defects = await defect.findAll({
+    order: [
+        ['id', 'asc']
+    ]
+});
+            response.render('defectPage.ejs',{defects})
         } catch (err) {
             response.json(err);
         }
@@ -11,10 +15,7 @@ class DefectController {
 
     static addDefectPage(request, response) {
         try {
-            response.json({
-                message : "Add Defect Page"
-            })
-
+            response.render('createDefect.ejs')
         } catch (err) {
             response.json(err);
         }
