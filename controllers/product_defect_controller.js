@@ -13,10 +13,10 @@ class ProductDefectController {
 
     static async addProductDefect(request, response) {
         try {
-            const { product_id, defect_id } = request.body
+            const { productId, defectId } = request.body
             let result = await productDefect.create({
-                product_id : +product_id, 
-                defect_id : +defect_id
+                productId : +productId, 
+                defectId : +defectId
             })
             response.json(result)
 
