@@ -1,0 +1,44 @@
+<%- include('header') %>
+<div class="row text-center">
+    <div class="col-12">
+        <h3>All Defect </h3>
+    </div>
+    <div class="col-12 my-2">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, eligendi? Quidem nobis architecto minima repudiandae deleniti beatae eaque accusantium nostrum ducimus odio. Ad excepturi sunt quo atque id, assumenda veniam!</p>
+    </div>
+    <div class="add">
+        <a href="/defects/add" class="btn btn-outline-dark"><i class="fa-solid fa-square-plus"></i> Add Defect</a>
+    </div>
+    <div class ="col-12 my-2">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>Defect</td>
+                    <td>Type</td>
+                    <td>Area</td>
+                    <td>Suggestion</td>
+                    <td>productNum</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <% defects.forEach(defect =>{%>
+                <tr>
+                    <th><%= defect.id %></th>
+                    <th><%= defect.defect_name %></th>
+                    <th><%= defect.type %></th>
+                    <th><%= defect.area %></th>
+                    <th><%= defect.suggestion %></th>
+                    <th><%= defect.product_id %></th>
+                    <th>
+                        <a href="/defects/delete/<%=defect.id%>" class="btn btn-danger">-</a>
+                        <a href="/defects/update/<%=defect.id%>" class="btn btn-success">+</a>
+                    </th>
+                </tr>
+                <% })%>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%- include('footer') %>
