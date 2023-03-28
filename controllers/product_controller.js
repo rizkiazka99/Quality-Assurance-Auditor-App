@@ -8,13 +8,19 @@ class ProductController {
                     ['id', 'asc']
                 ]
             });
-            response.json(products);
+            response.render('product/productPage.ejs',{products})
         } catch(err) {
             response.json(err);
         }
     }
 
-    static addProductPage(request, response) {
+    static async addProductPage(request, response) {
+        try {
+            response.render('product/createProduct.ejs')
+
+        } catch (err) {
+            response.json(err)
+        }
 
     }
 
@@ -24,13 +30,22 @@ class ProductController {
             let result = await product.create({
                 product_name, category, status
             });
-            response.json(result);
+            response.redirect('/products')
         } catch(err) {
             response.json(err);
         }
     }
 
-    static updateProductPage(request, response) {
+    static async updateProductPage(request, response) {
+        try {
+            const id = +request.params.id
+            let products = await product.findByPk(id);
+            
+            response.render('product/updateProduct.ejs',{products})
+            // console.log(products)
+        } catch (err) {
+            response.json(err);
+        }
 
     }
 
@@ -46,9 +61,7 @@ class ProductController {
             });
             
             result[0] === 1 ?
-                response.json({
-                    message: `Product with an ID of ${id} has been updated`
-                }) :
+            response.redirect('/products') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be updated or wasn't found`
                 });
@@ -92,9 +105,7 @@ class ProductController {
             });
 
             result === 1 ?
-                response.json({
-                    message: `Product with an ID of ${id} has been deleted`
-                }) :
+            response.redirect('/products') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be deleted or wasn't found`
                 });

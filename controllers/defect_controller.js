@@ -7,7 +7,7 @@ let defects = await defect.findAll({
         ['id', 'asc']
     ]
 });
-            response.render('defectPage.ejs',{defects})
+            response.render('defect/defectPage.ejs',{defects})
         } catch (err) {
             response.json(err);
         }
@@ -15,7 +15,7 @@ let defects = await defect.findAll({
 
     static addDefectPage(request, response) {
         try {
-            response.render('createDefect.ejs')
+            response.render('defect/createDefect.ejs')
         } catch (err) {
             response.json(err);
         }
@@ -27,7 +27,7 @@ let defects = await defect.findAll({
             let result = await defect.create({
                 defect_name, type, area, suggestion
             });
-            response.json(result);
+            response.redirect('/defects')
 
         } catch (err) {
             response.json(err);
@@ -40,7 +40,7 @@ let defects = await defect.findAll({
             const id = +request.params.id
             let defects = await defect.findByPk(id);
             
-            response.render('updateDefect.ejs',{defects})
+            response.render('defect/updateDefect.ejs',{defects})
             // console.log(defects)
         } catch (err) {
             response.json(err);
@@ -59,9 +59,7 @@ let defects = await defect.findAll({
             })
 
             result[0] === 1 ?
-                response.json({
-                    message: `Id ${id} has been updated`
-                }) :
+            response.redirect('/defects') :
                 response.json({
                     message: `Id ${id} not updated`
                 })
@@ -108,9 +106,7 @@ let defects = await defect.findAll({
             });
 
            result === 1 ?
-            response.json({
-                message: `Id ${id} deleted`
-            }) :
+           response.redirect('/defects') :
             response.json({
                 message: `id ${id} not deleted`
             });

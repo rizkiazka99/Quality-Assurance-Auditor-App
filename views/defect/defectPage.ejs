@@ -1,4 +1,4 @@
-<%- include('header') %>
+<%- include('../header') %>
 <div class="row text-center">
     <div class="col-12">
         <h3>All Defect </h3>
@@ -18,7 +18,6 @@
                     <td>Type</td>
                     <td>Area</td>
                     <td>Suggestion</td>
-                    <td>productNum</td>
                     <td></td>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                     <th><%= defect.type %></th>
                     <th><%= defect.area %></th>
                     <th><%= defect.suggestion %></th>
-                    <th><%= defect.product_id %></th>
                     <th>
                         <a href="/defects/delete/<%=defect.id%>" class="btn btn-danger">-</a>
                         <a href="/defects/update/<%=defect.id%>" class="btn btn-success">+</a>
@@ -41,4 +39,4 @@
         </table>
     </div>
 </div>
-<%- include('footer') %>
+<%- include('../footer') %>
