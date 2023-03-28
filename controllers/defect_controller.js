@@ -1,4 +1,4 @@
-const { defect, sequelize } = require('../models')
+const { defect, product, productDefect, sequelize } = require('../models')
 class DefectController {
     static async getByDefects(request, response) {
         try { 
@@ -115,10 +115,44 @@ class DefectController {
             response.json({
                 message: `id ${id} not deleted`
             });
-
-
-
         } catch (err) {
+            response.json(err);
+        }
+    }
+
+    static async getProducts(request, response) {
+        try {
+            const id = +request.params.id;
+            let products = [];
+            let resultProducts = {};
+            
+            let result = await productDefect.findAll({
+                where: {
+                    defectId: id
+                },
+                include: [ product, defect ]
+            });
+
+            if (result.length === 0) {
+                result = await this.getDefectById(id);
+
+                resultProducts = {
+                    ...result.dataValues,
+                    products
+                }
+            } else {
+                products = result.map((data) => {
+                    return data.product.dataValues;
+                });
+
+                resultProducts = {
+                    ...result[0].defect.dataValues,
+                    products
+                }
+            }
+
+            response.json(resultProducts);
+        } catch(err) {
             response.json(err);
         }
     }

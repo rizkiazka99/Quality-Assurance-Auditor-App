@@ -9,5 +9,6 @@ productRoute.post('/update/:id', ProductController.updateProduct);
 productRoute.get('/delete/:id', ProductController.deleteProduct);
 productRoute.get('/findById/:id', ProductController.getProductById);
 productRoute.get('/findByName/:name', ProductController.getProductByName);
+productRoute.get('/getDefects/:id', ProductController.getDefects);
 
 module.exports = productRoute;

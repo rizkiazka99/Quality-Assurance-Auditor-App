@@ -1,4 +1,5 @@
-const { productDefect, product, defect } = require('../models')
+const { productDefect, product, defect } = require('../models');
+const { deleteProduct } = require('./product_controller');
 
 class ProductDefectController {
     static async getProductDefect(request, response) {
@@ -11,7 +12,6 @@ class ProductDefectController {
         } catch (err) {
             response.json(err);
         }
-
     }
 
     static async addProductDefect(request, response) {
@@ -28,7 +28,25 @@ class ProductDefectController {
             response.json(err);
 
         }
-        
+    }
+
+    static async deleteProductDefect(request, response) {
+        try {
+            const id = +request.params.id;
+            
+            let result = await productDefect.destroy({
+                where: { id }
+            });
+
+            result === 1 ?
+                response.json({
+                    message: `ProductDefect with an ID of ${id} has been deleted`
+                }) : response.json({
+                    message: `ProductDefect with an ID of ${id} couldn't be deleted or wasn't found`
+                });
+        } catch(err) {
+            response.json(err);
+        }
     }
 }
 
