@@ -1,19 +1,22 @@
-const { defect } = require('../models')
+const { defect, sequelize } = require('../models')
 class DefectController {
     static async getByDefects(request, response) {
         try { 
             let defects = await defect.findAll()
-            response.render('defectPage.ejs',{defects})
+            response.json(defects)
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
     }
 
     static addDefectPage(request, response) {
         try {
-            response.render('createDefect.ejs')
+            response.json({
+                message : "Add Defect Page"
+            })
+
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
     }
 
@@ -22,11 +25,11 @@ class DefectController {
             const { defect_name, type, area, suggestion, product_id } = request.body;
             let result = await defect.create({
                 defect_name, type, area, suggestion, product_id
-            })
-            response.json(result)
+            });
+            response.json(result);
 
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
 
     }
@@ -39,7 +42,7 @@ class DefectController {
             response.render('updateDefect.ejs',{defects})
             // console.log(defects)
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
 
     }
@@ -62,10 +65,9 @@ class DefectController {
                     message: `Id ${id} not updated`
                 })
 
-        }catch (err) {
+        } catch (err) {
             response.json(err)
         }
-
     }
 
     static async getDefectById(request, response) {
@@ -77,26 +79,23 @@ class DefectController {
         } catch(err) {
             response.json(err);
         }
-
     }
 
     static async getDefectByName (request,response) {
         try {
-            const name = request.params.name.toLowerCase()
-            console.log(name)
+            const name = request.params.name.toLowerCase();
 
             let result = await defect.findAll({
                 where : {
-                    defect_name : name
+                    defect_name : sequelize.where(sequelize.fn('LOWER', sequelize.col('defect_name')), 'LIKE', '%' + name + '%')
                 }
-            })
-            response.json(result)
+            });
+            response.json(result);
 
         } catch (err) {
-            response.json(err)
+            response.json(err);
 
         } 
-
     }
 
     static async deleteDefect(request, response) {
@@ -105,7 +104,7 @@ class DefectController {
 
             let result = await defect.destroy({
                 where : { id }
-            })
+            });
 
            result === 1 ?
             response.json({
@@ -113,14 +112,13 @@ class DefectController {
             }) :
             response.json({
                 message: `id ${id} not deleted`
-            })
+            });
 
 
 
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
-
     }
 }
 

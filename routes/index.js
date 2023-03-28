@@ -13,6 +13,6 @@ const productDefectRoutes = require('./product_defect.js');
 
 route.use('/products', productRoutes);
 route.use('/defects', defectRoutes);
-route.use('/productsDefects', productDefectRoutes);
+route.use('/productDefects', productDefectRoutes);
 
 module.exports = route;

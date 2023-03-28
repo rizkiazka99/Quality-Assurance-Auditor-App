@@ -3,7 +3,11 @@ const { product, sequelize } = require('../models')
 class ProductController {
     static async getByProducts(request, response) {
         try {
-            let products = await product.findAll();
+            let products = await product.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
             response.json(products);
         } catch(err) {
             response.json(err);
@@ -67,7 +71,6 @@ class ProductController {
     static async getProductByName(request, response) {
         try {
             const name = request.params.name.toLowerCase();
-            console.log(name)
             
             let result = await product.findAll({
                 where: {

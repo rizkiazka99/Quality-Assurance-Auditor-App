@@ -1,12 +1,15 @@
-const { productDefect } = require('../models')
+const { productDefect, product, defect } = require('../models')
+
 class ProductDefectController {
     static async getProductDefect(request, response) {
         try { 
-            let productDefects = await productDefect.findAll()
-            response.json(productDefects)
+            let productDefects = await productDefect.findAll({
+                include: [ product, defect ]
+            });
+            response.json(productDefects);
             
         } catch (err) {
-            response.json(err)
+            response.json(err);
         }
 
     }
@@ -21,7 +24,7 @@ class ProductDefectController {
             response.json(result)
 
         } catch (err) {
-            response.json(err)
+            response.json(err);
 
         }
         
