@@ -1,0 +1,21 @@
+<%- include('../header') %>
+<form action="/defects/add" method="post">
+    <div class="mb-3">
+        <label  class="form-label">Name Defect</label>
+        <input type="text" class="form-control"  name="defect_name">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Type</label>
+        <input type="text" class="form-control"  name="type">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Area</label>
+        <input type="text" class="form-control"  name="area">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Suggestion</label>
+        <input type="text" class="form-control"  name="suggestion">
+    </div>
+      <button type="submit" class="btn btn-warning">Submit</button>
+</form>
+<%- include('../footer') %>

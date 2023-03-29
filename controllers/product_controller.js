@@ -3,6 +3,21 @@ const { product, defect, productDefect, sequelize } = require('../models')
 class ProductController {
     static async getByProducts(request, response) {
         try {
+            let products = await product.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
+
+            //response.json(products);
+            response.render('product/product_page.ejs', { products });
+        } catch(err) {
+            response.json(err);
+        }
+    }
+
+    static async getProducts(request, response) {
+        try {
             let filteredDefects = [];
 
             let products = await product.findAll({
@@ -10,16 +25,26 @@ class ProductController {
                     ['id', 'asc']
                 ]
             });
-            let defects = await defect.findAll();
-            let productsDefects = await productDefect.findAll();
+            let defects = await defect.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
+            let productsDefects = await productDefect.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
 
             for(let i = 0; i < products.length; i++) {
                 for(let j = 0; j < defects.length; j++) {
                     for(let k = 0; k < productsDefects.length; k++) {
-                        if (products[i].dataValues.id === productsDefects[k].dataValues.productId && productsDefects[k].dataValues.defectId === defects[j].dataValues.id) {
-                                //filteredDefects.push(defects[j].dataValues);
+                        if (products[i].dataValues.id === productsDefects[k].dataValues.productId) {
+                            if (productsDefects[k].dataValues.defectId === defects[j].dataValues.id) {
                                 products[i].dataValues.defects = [ defects[j].dataValues ];
-                                //filteredDefects = [];
+                            }
+                        } else if (products[i].dataValues.id !== productsDefects[k].dataValues.productId) {
+                            products[i].dataValues.defects = [];
                         }
                     }
                 }
@@ -31,7 +56,11 @@ class ProductController {
     }
 
     static addProductPage(request, response) {
-
+        try {
+            response.render('product/create_product.ejs');
+        } catch(err) {
+            response.json(err);
+        }
     }
 
     static async addProduct(request, response) {
@@ -62,9 +91,9 @@ class ProductController {
             });
             
             result[0] === 1 ?
-                response.json({
+                /*response.json({
                     message: `Product with an ID of ${id} has been updated`
-                }) :
+                })*/ response.redirect('/products') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be updated or wasn't found`
                 });
@@ -108,9 +137,9 @@ class ProductController {
             });
 
             result === 1 ?
-                response.json({
+                /*response.json({
                     message: `Product with an ID of ${id} has been deleted`
-                }) :
+                })*/ response.redirect('/products') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be deleted or wasn't found`
                 });

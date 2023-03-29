@@ -1,0 +1,44 @@
+<%- include('../header') %>
+<div class="row text-center">
+    <div class="col-12">
+        <h3>Audit Data </h3>
+    </div>
+    <div class="col-12 my-2">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, eligendi? Quidem nobis architecto minima repudiandae deleniti beatae eaque accusantium nostrum ducimus odio. Ad excepturi sunt quo atque id, assumenda veniam!</p>
+    </div>
+    <div class="add">
+        <a href="/productDefects/add" class="btn btn-outline-dark"><i class="fa-solid fa-square-plus"></i> Start Audit  </a>
+    </div>
+    <div class ="col-12 my-2">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Category</td>
+                    <td>Defect Name</td>
+                    <td>Type</td>
+                    <td>Area</td>
+                    <td>Suggestion</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <% productDefects.forEach(productDefect =>{%>
+                <tr>
+                    <th><%= productDefect.product.product_name %></th>
+                    <th><%= productDefect.product.category %></th>
+                    <th><%= productDefect.defect.defect_name %></th>
+                    <th><%= productDefect.defect.type %></th>
+                    <th><%= productDefect.defect.area %></th>
+                    <th><%= productDefect.defect.suggestion %></th>
+                    <th>
+                        <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger">-</a>
+                        <a href="/productsDefects/update/<%=productDefect.id%>" class="btn btn-success">+</a>
+                    </th>
+                </tr>
+                <% })%>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%- include('../footer') %>

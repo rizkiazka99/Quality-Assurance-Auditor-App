@@ -1,0 +1,13 @@
+<%- include('../header') %>
+<form action="/productDefects/add" method="post">
+    <div class="mb-3">
+        <label  class="form-label">Product Code</label>
+        <input type="number" class="form-control"  name="productId">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Defect Code</label>
+        <input type="number" class="form-control"  name="defectId">
+    </div>
+      <button type="submit" class="btn btn-warning">Submit</button>
+</form>
+<%- include('../footer') %>
