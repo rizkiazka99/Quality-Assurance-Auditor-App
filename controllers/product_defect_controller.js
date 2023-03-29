@@ -1,10 +1,14 @@
 const { productDefect, product, defect } = require('../models')
+const url = require('url')
 
 class ProductDefectController {
     static async getProductDefect(request, response) {
         try { 
             let productDefects = await productDefect.findAll({
-                include: [ product, defect ]
+                include: [ product, defect ],
+                order: [
+                    ['createdAt', 'desc']
+                ]
             });
             // response.json(productDefects)
             response.render('defectProduct/productDefectPage.ejs',{productDefects})
@@ -13,6 +17,38 @@ class ProductDefectController {
             response.json(err);
         }
 
+    }
+
+    static async getDefectByProduct (request, response) {
+        try{
+            const id = +request.params.id;
+            // let q = url.parse(request.url, true);
+            // let keyword = q.query.keyword;   
+            
+
+                let productDefects = await productDefect.findAll({
+                    where: {
+                        productId: id
+                    },
+                    include : [product, defect]
+                })
+                let defects = await productDefects.map((item)=> {
+                    return item.defect.dataValues
+                })
+    
+                let products = productDefects[0].product.dataValues
+                let result ={
+                    ...products,
+                    defects
+                }
+                response.json(result)
+
+
+
+        } catch (err) {
+            response.json(err)
+        }
+        
     }
 
     static async addProductDefectPage(request, response) {
@@ -50,9 +86,7 @@ class ProductDefectController {
             });
 
             result === 1 ?
-            response.json({
-                Message: 'already deleted'
-            }) :
+            response.redirect('defectProduct/productDefectPage') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be deleted or wasn't found`
                 });
