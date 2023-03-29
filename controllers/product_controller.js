@@ -3,11 +3,27 @@ const { product, defect, productDefect, sequelize } = require('../models')
 class ProductController {
     static async getByProducts(request, response) {
         try {
+            let filteredDefects = [];
+
             let products = await product.findAll({
                 order: [
                     ['id', 'asc']
                 ]
             });
+            let defects = await defect.findAll();
+            let productsDefects = await productDefect.findAll();
+
+            for(let i = 0; i < products.length; i++) {
+                for(let j = 0; j < defects.length; j++) {
+                    for(let k = 0; k < productsDefects.length; k++) {
+                        if (products[i].dataValues.id === productsDefects[k].dataValues.productId && productsDefects[k].dataValues.defectId === defects[j].dataValues.id) {
+                                //filteredDefects.push(defects[j].dataValues);
+                                products[i].dataValues.defects = [ defects[j].dataValues ];
+                                //filteredDefects = [];
+                        }
+                    }
+                }
+            }
             response.json(products);
         } catch(err) {
             response.json(err);
