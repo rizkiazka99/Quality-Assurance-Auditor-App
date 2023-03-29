@@ -55,9 +55,15 @@ class ProductController {
         }
     }
 
-    static addProductPage(request, response) {
+    static async addProductPage(request, response) {
         try {
-            response.render('product/create_product.ejs');
+            let defects = await defect.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
+
+            response.render('product/create_product.ejs', { defects });
         } catch(err) {
             response.json(err);
         }
@@ -65,18 +71,52 @@ class ProductController {
 
     static async addProduct(request, response) {
         try {
-            const { product_name, category, status, defect_id } = request.body;
+            const { product_name, category, status, defectId } = request.body;
+            let isArray = Array.isArray(defectId);
+            let productId = 0;
+
             let result = await product.create({
-                product_name, category, status, defect_id
+                product_name, category, status
             });
-            response.json(result);
+
+            if (request.body.defectId === undefined) {
+                console.log('This product has no defects');
+            } else {
+                if (isArray === true) {
+                    for(let i = 0; i < defectId.length; i++) {
+                        productId = result.dataValues.id;
+    
+                        await productDefect.create({
+                            productId: productId,
+                            defectId: defectId[i]
+                        });
+                    }
+                } else {
+                    productId = result.dataValues.id;
+    
+                    let productDefectResult = await productDefect.create({
+                        productId, defectId
+                    });
+                }
+            }
+
+            //response.json(result);
+            response.redirect('/products');
         } catch(err) {
             response.json(err);
         }
     }
 
-    static updateProductPage(request, response) {
-
+    static async updateProductPage(request, response) {
+        try {
+            const id = +request.params.id;
+            let products = await product.findByPk(id);
+            
+            response.render('product/update_product.ejs', { products });
+        } catch(err) {
+            console.log(err)
+            response.json(err);
+        }
     }
 
     static async updateProduct(request, response) {
@@ -134,6 +174,12 @@ class ProductController {
 
             let result = await product.destroy({
                 where: { id }
+            });
+
+            let productDefectResult = await productDefect.destroy({
+                where: {
+                    productId: id
+                }
             });
 
             result === 1 ?

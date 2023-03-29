@@ -13,7 +13,8 @@
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <td>No.</td>
+                    <td>Index</td>
+                    <td>Product ID</td>
                     <td>Product Name</td>
                     <td>Category</td>
                     <td>Status</td>
@@ -21,20 +22,18 @@
                 </tr>
             </thead>
             <tbody>
-                <% products.forEach((product, index) =>{%>
+                <% products.forEach((product , i) =>{%>
                 <tr>
-                    <th><%= index + 1 %></th>
+                    <th><%= i + 1 %></th>
+                    <th><%= product.id %></th>
                     <th><%= product.product_name %></th>
                     <th><%= product.category %></th>
                     <th><%= product.status %></th>
                     <th>
-                        <a href="/products/getDefects/<%= product.id %>" class="btn btn-warning">
-                            Defects
-                        </a>
-                        <a href="/products/delete/<%=product.id%>" class="btn btn-danger">
+                        <a href="/products/delete/<%= product.id %>" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </a>
-                        <a href="/products/update/<%=product.id%>" class="btn btn-success">
+                        <a href="/products/update/<%= product.id %>" class="btn btn-success">
                             <i class="fa-solid fa-pencil"></i>
                         </a>
                     </th>

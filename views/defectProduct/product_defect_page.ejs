@@ -2,10 +2,22 @@
 <div class="row text-center">
     <div class="col-12">
         <h3>Audit Data </h3>
+        <form class="d-flex ms-auto" action="/productDefects/product/search" method="get" >
+            <input
+              class="form-control me-2"
+              type="number"
+              name="keyword"
+              placeholder="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
     </div>
     <div class="col-12 my-2">
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, eligendi? Quidem nobis architecto minima repudiandae deleniti beatae eaque accusantium nostrum ducimus odio. Ad excepturi sunt quo atque id, assumenda veniam!</p>
     </div>
+    
     <div class="add">
         <a href="/productDefects/add" class="btn btn-outline-dark"><i class="fa-solid fa-square-plus"></i> Start Audit  </a>
     </div>
@@ -16,10 +28,8 @@
                     <td>Product Name</td>
                     <td>Category</td>
                     <td>Defect Name</td>
-                    <td>Type</td>
-                    <td>Area</td>
-                    <td>Suggestion</td>
-                    <td></td>
+                    <td>Created At</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -28,12 +38,11 @@
                     <th><%= productDefect.product.product_name %></th>
                     <th><%= productDefect.product.category %></th>
                     <th><%= productDefect.defect.defect_name %></th>
-                    <th><%= productDefect.defect.type %></th>
-                    <th><%= productDefect.defect.area %></th>
-                    <th><%= productDefect.defect.suggestion %></th>
+                    <th><%= productDefect.createdAt %></th>
                     <th>
-                        <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger">-</a>
-                        <a href="/productsDefects/update/<%=productDefect.id%>" class="btn btn-success">+</a>
+                        <a href="/productDefects/delete/<%=productDefect.productId%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
+                        <a href="/productDefects/update/<%=productDefect.productId%>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
+                        <a href="/productDefects/product/search/<%=productDefect.productId%>" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
                     </th>
                 </tr>
                 <% })%>

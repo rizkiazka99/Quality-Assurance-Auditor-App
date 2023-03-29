@@ -1,16 +1,16 @@
 <%- include('../header') %>
 <form action="/products/update/<%= products.id %>" method="post">
-    <div class="mb-3">
-        <label  class="form-label">Product Name</label>
-        <input type="text" class="form-control"  name="product_name">
+    <div class="form-floating mb-3">
+        <input value="<%= products.product_name %>" type="text" class="form-control" id="floatingInput" name="product_name" required>
+        <label for="floatingInput">Product Name</label>
     </div>
-    <div class="mb-3">
-        <label  class="form-label">Category</label>
-        <input type="text" class="form-control"  name="category">
+    <div class="form-floating mb-3">
+        <input value="<%= products.category %>" type="text" class="form-control" id="floatingInput" name="category" required>
+        <label for="floatingInput">Category</label>
     </div>
-    <div class="mb-3">
-        <label  class="form-label">status</label>
-        <input type="text" class="form-control"  name="status">
+    <div class="form-floating mb-3">
+        <input value="<%= products.status %>" type="text" class="form-control" id="floatingInput" name="status" required>
+        <label for="floatingInput">Status</label>
     </div>
     <button type="submit" class="btn btn-warning">Submit</button>
 </form>
