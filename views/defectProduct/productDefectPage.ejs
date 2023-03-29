@@ -27,7 +27,8 @@
                 <tr>
                     <td>Product Name</td>
                     <td>Category</td>
-                    <td>Defect Name</td>
+                    <td>Defect name</td>
+                    <td>Type</td>
                     <td>Created At</td>
                     <td>Action</td>
                 </tr>
@@ -38,6 +39,7 @@
                     <th><%= productDefect.product.product_name %></th>
                     <th><%= productDefect.product.category %></th>
                     <th><%= productDefect.defect.defect_name %></th>
+                    <th><%= productDefect.defect.type %></th>
                     <th><%= productDefect.createdAt %></th>
                     <th>
                         <a href="/productDefects/delete/<%=productDefect.productId%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>

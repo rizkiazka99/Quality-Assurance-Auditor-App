@@ -22,26 +22,27 @@ class ProductDefectController {
     static async getDefectByProduct (request, response) {
         try{
             const id = +request.params.id;
-            // let q = url.parse(request.url, true);
-            // let keyword = q.query.keyword;   
             
 
                 let productDefects = await productDefect.findAll({
                     where: {
                         productId: id
                     },
-                    include : [product, defect]
+                    include : [product, defect],
+                    order : [
+                        ['createdAt','desc']
+                    ]
                 })
                 let defects = await productDefects.map((item)=> {
                     return item.defect.dataValues
                 })
     
                 let products = productDefects[0].product.dataValues
-                let result ={
+                let results ={
                     ...products,
                     defects
                 }
-                response.json(result)
+                response.render('defectProduct/historyProductDefect.ejs',{results})
 
 
 
@@ -60,6 +61,8 @@ class ProductDefectController {
         }
 
     }
+
+
 
 
     static async addProductDefect(request, response) {
