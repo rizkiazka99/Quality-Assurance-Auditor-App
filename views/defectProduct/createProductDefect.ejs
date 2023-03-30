@@ -3,16 +3,18 @@
     <div class="mb-3">
         <label  class="form-label">Product Code</label> 
         <select name="productId" class="form-control">
-            <% productDefects.forEach((item)=> { %>
-                <option value="<%=item.productId%>"><%=item.productId%></option>
+            <option value="" selected></option>
+            <% productDefects.products.forEach((item)=> { %>
+                <option value="<%=item.id%>"><%=item.product_name%></option>
                 <% }); %>
         </select>
     </div>
     <div class="mb-3">
         <label  class="form-label">Defect Code</label>
         <select name="defectId" class="form-control">
-            <% productDefects.forEach((item)=> { %>
-                <option value="<%=item.defectId%>"><%=item.defectId%></option>
+            <option value="" selected></option>
+            <% productDefects.defects.forEach((item)=> { %>
+                <option value="<%=item.id%>"><%=item.defect_name%></option>
                 <% }); %>
         </select>
     </div>
