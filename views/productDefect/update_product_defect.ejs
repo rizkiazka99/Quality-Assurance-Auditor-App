@@ -1,0 +1,23 @@
+<%- include('../header') %>
+<form action="/productDefects/update/<%=productDefects.id%>" method="post">
+    <div class="form-floating mb-3">
+        <select class="form-select" name="productId" required>
+            <% productDefects.products.forEach((product) => { %>
+            <option value="<%= product.id %>"><%= product.product_name %></option>
+            <% }) %>
+        </select>
+        <label for="floatingInput">Product</label>
+    </div>
+    <div class="form-floating mb-3">
+        <select class="form-select" name="defectId" required>
+            <% productDefects.defects.forEach((defect) => { %>
+            <option value="<%= defect.id %>"><%= defect.defect_name %></option>
+            <% }) %>
+        </select>
+        <label for="floatingInput">Product</label>
+    </div>
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-warning">Submit</button>
+    </div>
+</form>
+<%- include('../footer') %>

@@ -1,21 +1,23 @@
 <%- include('../header') %>
 <form action="/defects/add" method="post">
-    <div class="mb-3">
-        <label  class="form-label">Name Defect</label>
-        <input type="text" class="form-control"  name="defect_name">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="defect_name" required>
+        <label for="floatingInput">Defect Name</label>
     </div>
-    <div class="mb-3">
-        <label  class="form-label">Type</label>
-        <input type="text" class="form-control"  name="type">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="type" required>
+        <label for="floatingInput">Type</label>
     </div>
-    <div class="mb-3">
-        <label  class="form-label">Area</label>
-        <input type="text" class="form-control"  name="area">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="area" required>
+        <label for="floatingInput">Area</label>
     </div>
-    <div class="mb-3">
-        <label  class="form-label">Suggestion</label>
-        <input type="text" class="form-control"  name="suggestion">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="suggestion">
+        <label for="floatingInput">Suggestion</label>
     </div>
+    <div class="d-grid gap-2">
       <button type="submit" class="btn btn-warning">Submit</button>
+    </div>
 </form>
 <%- include('../footer') %>

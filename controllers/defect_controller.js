@@ -7,7 +7,8 @@ class DefectController {
                     ['id', 'asc']
                 ]
             });
-            response.json(defects);
+            //response.json(defects);
+            response.render('defect/defect_page.ejs', { defects });
         } catch (err) {
             response.json(err);
         }
@@ -15,10 +16,7 @@ class DefectController {
 
     static addDefectPage(request, response) {
         try {
-            response.json({
-                message : "Add Defect Page"
-            });
-
+            response.render('defect/create_defect.ejs');
         } catch (err) {
             response.json(err);
         }
@@ -27,23 +25,26 @@ class DefectController {
     static async addDefect(request, response) {
         try {
             const { defect_name, type, area, suggestion, product_id } = request.body;
+            
             let result = await defect.create({
                 defect_name, type, area, suggestion, product_id
             });
-            response.json(result);
-
+            
+            response.redirect('/defects');
         } catch (err) {
             response.json(err);
         }
 
     }
 
-    static updateDefectPage(request, response) {
+    static async updateDefectPage(request, response) {
         try {
-            response.json({ 
-                message: "UpdateDefectPage"
-            })
+            const id = +request.params.id;
+
+            let defects = await defect.findByPk(id);
+            response.render('defect/update_defect.ejs', { defects });
         } catch (err) {
+            console.log(err)
             response.json(err);
         }
 
@@ -60,11 +61,11 @@ class DefectController {
             })
 
             result[0] === 1 ?
-                response.json({
+                /*response.json({
                     message: `Id ${id} has been updated`
-                }) :
+                })*/ response.redirect('/defects') :
                 response.json({
-                    message: `Id ${id} not updated`
+                    message: `Id ${id} was not updated`
                 })
 
         } catch (err) {
@@ -109,11 +110,11 @@ class DefectController {
             });
 
            result === 1 ?
-            response.json({
+            /*response.json({
                 message: `Id ${id} deleted`
-            }) :
+            })*/ response.redirect('/defects'):
             response.json({
-                message: `id ${id} not deleted`
+                message: `id ${id} was not deleted`
             });
         } catch (err) {
             response.json(err);

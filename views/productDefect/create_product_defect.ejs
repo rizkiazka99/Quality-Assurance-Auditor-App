@@ -14,7 +14,9 @@
         <input value="<%= defect.id %>" name="defectId" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
         <label class="form-check-label" for="flexSwitchCheckDefault"><%= defect.defect_name %></label>
     </div>
-    <% }) %>  
-    <button type="submit" class="btn btn-warning">Submit</button>
+    <% }) %>
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </div>
 </form>
 <%- include('../footer') %>

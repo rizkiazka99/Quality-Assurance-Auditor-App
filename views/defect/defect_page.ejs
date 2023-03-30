@@ -28,10 +28,20 @@
                     <th><%= defect.defect_name %></th>
                     <th><%= defect.type %></th>
                     <th><%= defect.area %></th>
-                    <th><%= defect.suggestion %></th>
                     <th>
-                        <a href="/defects/delete/<%=defect.id%>" class="btn btn-danger">-</a>
-                        <a href="/defects/update/<%=defect.id%>" class="btn btn-success">+</a>
+                        <% if (defect.suggestion === null || defect.suggestion === '') { %>
+                            N/A
+                        <% } else { %>
+                            <%= defect.suggestion %>
+                        <% } %>  
+                    </th>
+                    <th>
+                        <a href="/defects/delete/<%=defect.id%>" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                        <a href="/defects/update/<%=defect.id%>" class="btn btn-success">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
                     </th>
                 </tr>
                 <% })%>
