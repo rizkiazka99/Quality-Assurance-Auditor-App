@@ -27,29 +27,26 @@
                 <tr>
                     <td>Index</td>
                     <td>ID</td>
-                    <td>Product Name</td>
+                    <td>Product</td>
                     <td>Category</td>
-                    <td>Defect Name</td>
-                    <td>Created At</td>
-                    <td>Action</td>
+                    <td>Defects</td>
                 </tr>
             </thead>
             <tbody>
-                <% productDefects.forEach((productDefect, i) =>{%>
-                <tr>
-                    <th><%= i + 1 %></th>
-                    <th><%= productDefect.id %></th>
-                    <th><%= productDefect.product.product_name %></th>
-                    <th><%= productDefect.product.category %></th>
-                    <th><%= productDefect.defect.defect_name %></th>
-                    <th><%= productDefect.createdAt %></th>
-                    <th>
-                        <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
-                        <a href="/productDefects/update/<%=productDefect.id %>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
-                        <a href="/productDefects/product/search/<%=productDefect.productId%>" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
-                    </th>
-                </tr>
-                <% })%>
+                <% for(let i = 0; i < productsDefectsResult.length; i++) { %>
+                    <% let defects = productsDefectsResult[i].defects %>
+                    <tr>
+                        <th><%= i + 1 %></th>
+                        <th><%= productsDefectsResult[i].id %></th>
+                        <th><%= productsDefectsResult[i].product_name %></th>
+                        <th><%= productsDefectsResult[i].category %></th>
+                        <th>
+                            <% for(let j = 0; j < defects.length; j++) { %>
+                              <%= defects[j].defect_name %>
+                            <% } %>
+                        </th>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>

@@ -1,28 +1,63 @@
 const { productDefect, product, defect } = require('../models');
-const { ProductController } = require('../controllers');
 
 class ProductDefectController {
     static async getProductDefect(request, response) {
-        try { 
-            let productDefects = await productDefect.findAll({
+        try {
+            let products = await product.findAll({
                 order: [
                     ['id', 'asc']
-                ],
-                include: [ product, defect ]
+                ]
             });
 
-            let defectPerProduct = null;
+            let defectsPerProduct = [];
+            let defects = [];
+            let result = {};
+            let productDefects;
 
-            for(let i = 0; i < productDefects.length; i++) {
-                defectPerProduct = await ProductController.getDefects(productDefects[i].dataValues.id, request, response);
+            for(let i = 0; i < products.length; i++) {
+                productDefects = await productDefect.findAll({
+                    where: {
+                        productId: products[i].dataValues.id
+                    },
+                    include: [ product, defect ],
+                });
+
+                if (productDefects.length === 0) {
+                    result = {
+                        defects
+                    }
+
+                    defectsPerProduct.push(result)
+                } else {
+                    defects = productDefects.map((pd) => {
+                        return pd.defect.dataValues;
+                    });
+
+                    result = {
+                        defects
+                    }
+
+                    defectsPerProduct.push(result)
+                }
             }
 
-            response.json(defectPerProduct)
-            //response.json(productDefects);
-            //response.render('productDefect/product_defect_page.ejs', { productDefects, defectPerProduct });
+            let productsDefectsResult = [];
+
+            for(let j = 0; j < products.length; j++) {
+                for(let k = 0; k < defectsPerProduct.length; k++) {
+                    if (j === k) {
+                        productsDefectsResult.push({
+                            ...products[j].dataValues,
+                            ...defectsPerProduct[k]
+                        });
+                    }
+                }
+            }
             
+            //response.json(productsDefectsResult);
+            response.render('productDefect/product_defect_page.ejs', { productsDefectsResult });
         } catch (err) {
-            console.log('error')
+            console.log(err)
             response.json(err);
         }
     }

@@ -16,45 +16,6 @@ class ProductController {
         }
     }
 
-    static async getProducts(request, response) {
-        try {
-            let filteredDefects = [];
-
-            let products = await product.findAll({
-                order: [
-                    ['id', 'asc']
-                ]
-            });
-            let defects = await defect.findAll({
-                order: [
-                    ['id', 'asc']
-                ]
-            });
-            let productsDefects = await productDefect.findAll({
-                order: [
-                    ['id', 'asc']
-                ]
-            });
-
-            for(let i = 0; i < products.length; i++) {
-                for(let j = 0; j < defects.length; j++) {
-                    for(let k = 0; k < productsDefects.length; k++) {
-                        if (products[i].dataValues.id === productsDefects[k].dataValues.productId) {
-                            if (productsDefects[k].dataValues.defectId === defects[j].dataValues.id) {
-                                products[i].dataValues.defects = [ defects[j].dataValues ];
-                            }
-                        } else if (products[i].dataValues.id !== productsDefects[k].dataValues.productId) {
-                            products[i].dataValues.defects = [];
-                        }
-                    }
-                }
-            }
-            response.json(products);
-        } catch(err) {
-            response.json(err);
-        }
-    }
-
     static async addProductPage(request, response) {
         try {
             let defects = await defect.findAll({
@@ -171,9 +132,9 @@ class ProductController {
         }
     }
 
-    static async getDefects(id, request, response) {
+    static async getDefects(request, response) {
         try {
-            id = +request.params.id;
+            let id = +request.params.id;
             let resultProductDefects = {};
             let defects = [];
 
