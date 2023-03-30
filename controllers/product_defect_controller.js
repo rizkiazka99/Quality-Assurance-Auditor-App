@@ -118,27 +118,34 @@ class ProductDefectController {
     static async UpdateProductDefectPage(request, response) {
         try {
             const id = +request.params.id
-            let results = await productDefect.findAll({
-                attributes : ['id','productId','defectId',`createdAt`],
+            let results = await productDefect.findByPk((id),{
                 include: [ product, defect ],
+
+            });
+
+            let products = await product.findAll({
                 order: [
-                    ['createdAt', 'desc']
+                    ['id', 'asc']
                 ]
             });
-            let idName = results.map((item)=>{
-                return item.productId
-            })
+            let defects = await defect.findAll({
+                order: [
+                    ['id', 'asc']
+                ]
+            });
 
-            let productDefects = await results.filter(item => {
-                if (item.id === idName) {
-                    return item
-                }
-            })
+            let productDefects = {
+                ...results.dataValues,
+                products,
+                defects
+            }
+
             
-            response.json(productDefects)
-            // console.log(results)
+            
+            // response.json(results)
+            // response.json(productDefects)
 
-            // response.render('defectProduct/updateProductDefect.ejs',{productDefects})
+            response.render('defectProduct/updateProductDefect.ejs',{productDefects})
 
         } catch (err) {
             response.json(err)
