@@ -95,12 +95,14 @@ class ProductController {
         try {
             const name = request.params.name.toLowerCase();
             
-            let result = await product.findAll({
+            let products = await product.findAll({
                 where: {
                     product_name: sequelize.where(sequelize.fn('LOWER', sequelize.col('product_name')), 'LIKE', '%' + name + '%')
                 }
             });
-            response.json(result);
+            
+            //response.json(result);
+            response.render('products/product_page.ejs', { products });
         } catch(err) {
             response.json(err);
         }

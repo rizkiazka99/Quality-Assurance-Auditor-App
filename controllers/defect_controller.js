@@ -109,6 +109,12 @@ class DefectController {
                 where : { id }
             });
 
+            let productDefectResult = await productDefect.destroy({
+                where: {
+                    defectId: id
+                }
+            });
+
            result === 1 ?
             /*response.json({
                 message: `Id ${id} deleted`

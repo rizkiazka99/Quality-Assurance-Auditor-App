@@ -1,0 +1,62 @@
+<%- include('../header') %>
+<div class="container">
+<div class="row text-center">
+    <div class="col-12">
+        <h3>Audit Data </h3>
+        <form class="d-flex ms-auto" action=" " method="get" >
+            <input
+              class="form-control me-2"
+              type="number"
+              name="keyword"
+              placeholder="Search"
+            />
+            <button class="btn btn-outline-warning" type="submit">
+              Search
+            </button>
+        </form>
+    </div>
+    <div class="col-12 my-2">
+        <p>Trying to keep your products' defect(s) in check? You've come to the right place!</p>
+    </div>
+    <div class ="col-12 my-2">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <td>Index</td>
+                    <td>ID</td>
+                    <td>Product</td>
+                    <td>Category</td>
+                    <td>Defects</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < productsDefectsResult.length; i++) { %>
+                    <% let defects = productsDefectsResult[i].defects %>
+                    <tr>
+                        <th><%= i + 1 %></th>
+                        <th><%= productsDefectsResult[i].id %></th>
+                        <th><%= productsDefectsResult[i].product_name %></th>
+                        <th><%= productsDefectsResult[i].category %></th>
+                        <th>
+                            <% if (defects.length === 0) { %>
+                                N/A
+                            <% } else { %>
+                                <% for(let j = 0; j < defects.length; j++) { %>
+                                    <% if (j === defects.length - 1) {%>
+                                        <%= defects[j].defect_name %>
+                                    <% } else if (j === defects.length - 2) {%>
+                                        <%= defects[j].defect_name %> &
+                                    <% } else { %>
+                                        <%= defects[j].defect_name %>,
+                                    <%} %>
+                                <% } %>
+                            <% } %>
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<%- include('../footer') %>

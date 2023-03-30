@@ -34,23 +34,16 @@ class ProductDefectController {
                     include: [ product, defect ],
                 });
 
-                if (productDefects.length === 0) {
-                    result = {
-                        defects
-                    }
+                
+                defects = productDefects.map((pd) => {
+                    return pd.defect.dataValues;
+                });
 
-                    defectsPerProduct.push(result)
-                } else {
-                    defects = productDefects.map((pd) => {
-                        return pd.defect.dataValues;
-                    });
-
-                    result = {
-                        defects
-                    }
-
-                    defectsPerProduct.push(result)
+                result = {
+                    defects
                 }
+
+                defectsPerProduct.push(result)
             }
 
             let productsDefectsResult = [];
@@ -66,8 +59,8 @@ class ProductDefectController {
                 }
             }
             
-            //response.json(productsDefectsResult);
-            response.render('productDefect/product_defect_page.ejs', { productsDefectsResult });
+            //response.json(defectsPerProduct);
+            response.render('productDefect/products_defects_page.ejs', { productsDefectsResult });
         } catch (err) {
             console.log(err)
             response.json(err);
@@ -200,8 +193,7 @@ class ProductDefectController {
             
             
             // response.json(results)
-            // response.json(productDefects)
-
+            //response.json(productDefects)
             response.render('productDefect/update_product_defect.ejs',{productDefects})
 
         } catch (err) {

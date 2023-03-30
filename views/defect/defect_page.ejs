@@ -1,19 +1,33 @@
 <%- include('../header') %>
+<div class="container">
 <div class="row text-center">
     <div class="col-12">
-        <h3>All Defect </h3>
+        <h3>Defect List</h3>
+        <form class="d-flex ms-auto" action=" " method="get" >
+            <input
+              id="searchquery"
+              class="form-control me-2"
+              type="text"
+              name="keyword"
+              placeholder="Search"
+            />
+            <button class="btn btn-outline-warning" type="submit">
+              Search
+            </button>
+        </form>
     </div>
     <div class="col-12 my-2">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, eligendi? Quidem nobis architecto minima repudiandae deleniti beatae eaque accusantium nostrum ducimus odio. Ad excepturi sunt quo atque id, assumenda veniam!</p>
+        <p>Nothing is perfect and so are your products. Here are the imperfections that your products could have.</p>
     </div>
     <div class="add">
-        <a href="/defects/add" class="btn btn-outline-dark"><i class="fa-solid fa-square-plus"></i> Add Defect</a>
+        <a href="/defects/add" class="btn btn-outline-warning"><i class="fa-solid fa-square-plus"></i> Add Defect</a>
     </div>
     <div class ="col-12 my-2">
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <td>id</td>
+                    <td>Index</td>
+                    <td>ID</td>
                     <td>Defect</td>
                     <td>Type</td>
                     <td>Area</td>
@@ -22,8 +36,9 @@
                 </tr>
             </thead>
             <tbody>
-                <% defects.forEach(defect =>{%>
+                <% defects.forEach((defect, i) =>{%>
                 <tr>
+                    <th><%= i + 1 %></th>
                     <th><%= defect.id %></th>
                     <th><%= defect.defect_name %></th>
                     <th><%= defect.type %></th>
@@ -39,7 +54,7 @@
                         <a href="/defects/delete/<%=defect.id%>" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </a>
-                        <a href="/defects/update/<%=defect.id%>" class="btn btn-success">
+                        <a href="/defects/update/<%=defect.id%>" class="btn btn-warning">
                             <i class="fa-solid fa-pencil"></i>
                         </a>
                     </th>
@@ -48,5 +63,6 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 <%- include('../footer') %>

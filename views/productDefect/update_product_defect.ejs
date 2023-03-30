@@ -1,23 +1,27 @@
 <%- include('../header') %>
+<div class="container">
 <form action="/productDefects/update/<%=productDefects.id%>" method="post">
     <div class="form-floating mb-3">
         <select class="form-select" name="productId" required>
+            <option value="<%= productDefects.product.id %>" selected><%= productDefects.product.product_name %></option>
             <% productDefects.products.forEach((product) => { %>
-            <option value="<%= product.id %>"><%= product.product_name %></option>
+                <option value="<%= product.id %>"><%= product.product_name %></option>
             <% }) %>
         </select>
         <label for="floatingInput">Product</label>
     </div>
     <div class="form-floating mb-3">
         <select class="form-select" name="defectId" required>
+            <option value="<%= productDefects.defect.id %>" selected><%= productDefects.defect.defect_name %></option>
             <% productDefects.defects.forEach((defect) => { %>
-            <option value="<%= defect.id %>"><%= defect.defect_name %></option>
+                <option value="<%= defect.id %>"><%= defect.defect_name %></option>
             <% }) %>
         </select>
-        <label for="floatingInput">Product</label>
+        <label for="floatingInput">Defect</label>
     </div>
     <div class="d-grid gap-2">
       <button type="submit" class="btn btn-warning">Submit</button>
     </div>
 </form>
+</div>
 <%- include('../footer') %>
