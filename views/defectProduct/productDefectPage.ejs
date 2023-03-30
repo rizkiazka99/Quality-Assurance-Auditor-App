@@ -31,7 +31,7 @@
                     <td>Category</td>
                     <td>Defect name</td>
                     <td>Type</td>
-                    <td>Created At</td>
+                    <td>Create</td>
                     <td>Action</td>
                 </tr>
             </thead>
@@ -44,7 +44,7 @@
                     <th><%= productDefect.product.category %></th>
                     <th><%= productDefect.defect.defect_name %></th>
                     <th><%= productDefect.defect.type %></th>
-                    <th><%= productDefect.createdAt %></th>
+                    <th><%= new Date(productDefect.createdAt).toLocaleString('en-US') %></th>
                     <th>
                         <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
                         <a href="/productDefects/update/<%=productDefect.id%>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
