@@ -1,0 +1,20 @@
+<%- include('../header') %>
+<form action="/productDefects/add" method="post">
+    <div class="form-floating mb-3">
+        <select name="productId" class="form-control" required>
+            <% products.forEach((product) => { %>
+            <option value="<%= product.id %>"><%= product.product_name %></option>
+            <% }) %>
+        </select>
+        <label for="form-floating">Product</label>
+    </div>
+    <label class="form-class">Defects</label>
+    <% defects.forEach((defect) => { %>
+    <div class="form-check form-switch">
+        <input value="<%= defect.id %>" name="defectId" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault"><%= defect.defect_name %></label>
+    </div>
+    <% }) %>  
+    <button type="submit" class="btn btn-warning">Submit</button>
+</form>
+<%- include('../footer') %>
