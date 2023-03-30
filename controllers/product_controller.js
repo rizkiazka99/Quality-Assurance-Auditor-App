@@ -71,34 +71,11 @@ class ProductController {
 
     static async addProduct(request, response) {
         try {
-            const { product_name, category, status, defectId } = request.body;
-            let isArray = Array.isArray(defectId);
-            let productId = 0;
+            const { product_name, category, status } = request.body;
 
             let result = await product.create({
                 product_name, category, status
             });
-
-            if (request.body.defectId === undefined) {
-                console.log('This product has no defects');
-            } else {
-                if (isArray === true) {
-                    for(let i = 0; i < defectId.length; i++) {
-                        productId = result.dataValues.id;
-    
-                        await productDefect.create({
-                            productId: productId,
-                            defectId: defectId[i]
-                        });
-                    }
-                } else {
-                    productId = result.dataValues.id;
-    
-                    let productDefectResult = await productDefect.create({
-                        productId, defectId
-                    });
-                }
-            }
 
             //response.json(result);
             response.redirect('/products');
@@ -194,9 +171,9 @@ class ProductController {
         }
     }
 
-    static async getDefects(request, response) {
+    static async getDefects(id, request, response) {
         try {
-            const id = +request.params.id;
+            id = +request.params.id;
             let resultProductDefects = {};
             let defects = [];
 

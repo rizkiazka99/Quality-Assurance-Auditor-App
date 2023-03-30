@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   productDefect.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
     productId: DataTypes.INTEGER,
     defectId: DataTypes.INTEGER
   }, {

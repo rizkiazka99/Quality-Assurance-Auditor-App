@@ -26,6 +26,7 @@
             <thead>
                 <tr>
                     <td>Index</td>
+                    <td>ID</td>
                     <td>Product Name</td>
                     <td>Category</td>
                     <td>Defect Name</td>
@@ -37,13 +38,14 @@
                 <% productDefects.forEach((productDefect, i) =>{%>
                 <tr>
                     <th><%= i + 1 %></th>
+                    <th><%= productDefect.id %></th>
                     <th><%= productDefect.product.product_name %></th>
                     <th><%= productDefect.product.category %></th>
                     <th><%= productDefect.defect.defect_name %></th>
                     <th><%= productDefect.createdAt %></th>
                     <th>
-                        <a href="/productDefects/delete/<%=productDefect.productId%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
-                        <a href="/productDefects/update/<%=productDefect.productId%>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
+                        <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
+                        <a href="/productDefects/update/<%=productDefect.id %>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
                         <a href="/productDefects/product/search/<%=productDefect.productId%>" class="btn btn-info"><i class="fa-solid fa-eye"></i></a>
                     </th>
                 </tr>

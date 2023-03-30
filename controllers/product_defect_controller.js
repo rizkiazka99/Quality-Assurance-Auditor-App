@@ -1,16 +1,28 @@
 const { productDefect, product, defect } = require('../models');
+const { ProductController } = require('../controllers');
 
 class ProductDefectController {
     static async getProductDefect(request, response) {
         try { 
             let productDefects = await productDefect.findAll({
+                order: [
+                    ['id', 'asc']
+                ],
                 include: [ product, defect ]
             });
 
+            let defectPerProduct = null;
+
+            for(let i = 0; i < productDefects.length; i++) {
+                defectPerProduct = await ProductController.getDefects(productDefects[i].dataValues.id, request, response);
+            }
+
+            response.json(defectPerProduct)
             //response.json(productDefects);
-            response.render('productDefect/product_defect_page.ejs', { productDefects });
+            //response.render('productDefect/product_defect_page.ejs', { productDefects, defectPerProduct });
             
         } catch (err) {
+            console.log('error')
             response.json(err);
         }
     }
@@ -66,9 +78,7 @@ class ProductDefectController {
             const id = +request.params.id;
             
             let result = await productDefect.destroy({
-                where: { 
-                    productId: id
-                 }
+                where: { id }
             });
 
             result === 1 ?
