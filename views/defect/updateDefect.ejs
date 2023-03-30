@@ -1,20 +1,24 @@
 <%- include('../header') %>
 <form action="/defects/update/<%= defects.id %>" method="post">
     <div class="mb-3">
+        <label  class="form-label">ID</label>
+        <input type="text" class="form-control"  name="id" value="<%= defects.id%>">
+    </div>
+    <div class="mb-3">
         <label  class="form-label">Name Defect</label>
-        <input type="text" class="form-control"  name="defect_name">
+        <input type="text" class="form-control"  name="defect_name" value="<%= defects.defect_name%>">
     </div>
     <div class="mb-3">
         <label  class="form-label">Type</label>
-        <input type="text" class="form-control"  name="type">
+        <input type="text" class="form-control"  name="type" value="<%= defects.type%>">
     </div>
     <div class="mb-3">
         <label  class="form-label">Area</label>
-        <input type="text" class="form-control"  name="area">
+        <input type="text" class="form-control"  name="area" value="<%= defects.area%>">
     </div>
     <div class="mb-3">
         <label  class="form-label">Suggestion</label>
-        <input type="text" class="form-control"  name="suggestion">
+        <input type="text" class="form-control"  name="suggestion" value="<%= defects.suggestion%>">
     </div>
       <button type="submit" class="btn btn-warning">Submit</button>
 </form>

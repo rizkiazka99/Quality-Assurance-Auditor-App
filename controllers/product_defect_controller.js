@@ -54,7 +54,8 @@ class ProductDefectController {
 
     static async addProductDefectPage(request, response) {
         try {
-            response.render('defectProduct/createProductDefect.ejs')
+            let productDefects = await productDefect.findAll()
+            response.render('defectProduct/createProductDefect.ejs',{productDefects})
 
         } catch (err) {
             response.json(err)

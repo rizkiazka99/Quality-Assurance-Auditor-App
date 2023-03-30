@@ -1,22 +1,19 @@
 <%- include('../header') %>
 <form action="/productDefects/add" method="post">
     <div class="mb-3">
-        <label  class="form-label">Product Code</label>
+        <label  class="form-label">Product Code</label> 
         <select name="productId" class="form-control">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <% productDefects.forEach((item)=> { %>
+                <option value="<%=item.productId%>"><%=item.productId%></option>
+                <% }); %>
         </select>
     </div>
     <div class="mb-3">
         <label  class="form-label">Defect Code</label>
         <select name="defectId" class="form-control">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <% productDefects.forEach((item)=> { %>
+                <option value="<%=item.defectId%>"><%=item.defectId%></option>
+                <% }); %>
         </select>
     </div>
       <button type="submit" class="btn btn-warning">Submit</button>
