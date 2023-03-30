@@ -1,8 +1,6 @@
 <%- include('header') %>
       <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio
-        deserunt nihil fugiat eos animi! Animi atque id laboriosam sequi minus,
-        autem sapiente, vero quam cumque aliquid vel est, possimus aut!
+        You can acces your audit result and check the results for made a better quality product
       </p>
       <form class="d-flex ms-auto" role="search" method="get" action="/product/findByName/{nama_produk}">
         <input
@@ -14,5 +12,41 @@
         />
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
+      <div class="card-container d-flex">
+        <div class="card" style="width: 18rem;">
+          <img src="https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/3/6/e46681a5-15fa-4cee-a483-a0c347555afc.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img src="https://images.tokopedia.net/img/cache/500-square/VqbcmM/2022/10/21/77eea3b5-19c5-4316-9197-81d61b1adbe0.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img src="https://cf.shopee.co.id/file/9a01dfb61be8f5d2cde5f85f900abf9d" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
     </div>
+    <style>
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .card {
+        margin-bottom: 20px;
+      }
+    </style>
  <%- include('footer') %>
