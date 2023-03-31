@@ -34,7 +34,7 @@
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <td>No</td>
+                    <td>No.</td>
                     <td>Product ID</td>
                     <td>Product Name</td>
                     <td>Category</td>
@@ -53,11 +53,7 @@
                     <th><%= productDefect.product.category %></th>
                     <th><%= productDefect.defect.defect_name %></th>
                     <th><%= productDefect.defect.type %></th>
-                    <th>
-                        <% let createdAt = productDefect.createdAt.toString(); %>
-                        <% let result = createdAt.split('GMT')[0]+'GMT'; %>
-                        <%= result %>
-                    </th>
+                    <th><%= new Date(productDefect.createdAt).toLocaleString('en-US') %></th>
                     <th>
                         <a href="/productDefects/delete/<%=productDefect.id%>" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #d4d9e2;"></i></a>
                         <a href="/productDefects/update/<%=productDefect.id%>" class="btn btn-warning"><i class="fa-solid fa-wrench" style="color: #d80707ce;"></i></a>
