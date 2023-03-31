@@ -7,6 +7,7 @@ class ProductDefectController {
                 include: [ product, defect ]
             });
 
+            //response.json(productDefects)
             response.render('productDefect/product_defect_page.ejs', { productDefects });
         } catch(err) {
             response.json(err);
@@ -59,7 +60,7 @@ class ProductDefectController {
                 }
             }
             
-            //response.json(defectsPerProduct);
+            //response.json(productsDefectsResult);
             response.render('productDefect/products_defects_page.ejs', { productsDefectsResult });
         } catch (err) {
             console.log(err)
@@ -68,36 +69,34 @@ class ProductDefectController {
     }
 
     static async getDefectByProduct (request, response) {
-        try{
+        try {
             const id = +request.params.id;
             
 
-                let productDefects = await productDefect.findAll({
-                    where: {
-                        productId: id
-                    },
-                    include : [product, defect],
-                    order : [
-                        ['createdAt','desc']
-                    ]
-                })
-                let defects = await productDefects.map((item)=> {
-                    return item.defect.dataValues
-                })
+            let productDefects = await productDefect.findAll({
+                where: {
+                    productId: id
+                },
+                include : [product, defect],
+                order : [
+                    ['createdAt','desc']
+                ]
+            })
+            let defects = await productDefects.map((item)=> {
+                return item.defect.dataValues
+            })
     
-                let products = productDefects[0].product.dataValues
-                let results ={
-                    ...products,
-                    defects
-                }
-                response.render('productDefect/history_product_defect.ejs', { results });
+            let products = productDefects[0].product.dataValues
+            let results = {
+                ...products,
+                defects
+            }
 
-
-
+            //response.json(results);
+            response.render('productDefect/history_product_defect.ejs', { results });
         } catch (err) {
             response.json(err)
         }
-        
     }
 
     static async addProductDefectPage(request, response) {
@@ -124,21 +123,23 @@ class ProductDefectController {
         try {
             const { productId, defectId } = request.body;
             let isArray = Array.isArray(defectId);
+            let result;
             
             if (isArray === true) {
                 for(let i = 0; i < defectId.length; i++) {
-                    await productDefect.create({
+                    result = await productDefect.create({
                         productId: +productId,
                         defectId: +defectId[i]
                     });
                 }
             } else {
-                let result = await productDefect.create({
+                result = await productDefect.create({
                     productId: +productId,
                     defectId: +defectId
                 });
             }
             
+            //response.json(result);
             response.redirect('/productDefects');
         } catch (err) {
             response.json(err);
@@ -165,7 +166,7 @@ class ProductDefectController {
         }
     }
 
-    static async UpdateProductDefectPage(request, response) {
+    static async updateProductDefectPage(request, response) {
         try {
             const id = +request.params.id
             let results = await productDefect.findByPk((id),{
@@ -202,7 +203,7 @@ class ProductDefectController {
 
     }
 
-    static async UpdateProductDefect (request, response) {
+    static async updateProductDefect (request, response) {
         try {
             const id = +request.params.id
 
@@ -215,7 +216,9 @@ class ProductDefectController {
             });
             
             result[0] === 1 ?
-            response.redirect('/productDefects') :
+                /*response.json({
+                    message: `ProductDefect with an ID of ${id} has been deleted`
+                })*/ response.redirect('/productDefects') :
                 response.json({
                     message: `Product with an ID of ${id} couldn't be updated or wasn't found`
                 });

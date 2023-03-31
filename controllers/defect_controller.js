@@ -30,6 +30,7 @@ class DefectController {
                 defect_name, type, area, suggestion, product_id
             });
             
+            //response.json(result)
             response.redirect('/defects');
         } catch (err) {
             response.json(err);
@@ -62,10 +63,10 @@ class DefectController {
 
             result[0] === 1 ?
                 /*response.json({
-                    message: `Id ${id} has been updated`
+                    message: `Defect with an ID of ${id} has been updated`
                 })*/ response.redirect('/defects') :
                 response.json({
-                    message: `Id ${id} was not updated`
+                    message: `Defect with an ID of ${id} couldn't be updated or wasn't found`
                 })
 
         } catch (err) {
@@ -117,10 +118,10 @@ class DefectController {
 
            result === 1 ?
             /*response.json({
-                message: `Id ${id} deleted`
+                message: `Defect with an ID of ${id} has been deleted`
             })*/ response.redirect('/defects'):
             response.json({
-                message: `id ${id} was not deleted`
+                message: `Defect with an ID of ${id} couldn't be deleted or wasn't found`
             });
         } catch (err) {
             response.json(err);

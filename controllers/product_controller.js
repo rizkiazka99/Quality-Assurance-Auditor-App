@@ -101,8 +101,8 @@ class ProductController {
                 }
             });
             
-            //response.json(result);
-            response.render('products/product_page.ejs', { products });
+            response.json(products);
+            //response.render('product/product_page.ejs', { products });
         } catch(err) {
             response.json(err);
         }
